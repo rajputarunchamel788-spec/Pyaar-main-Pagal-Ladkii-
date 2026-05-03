@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Jaan ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #fce4ec;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+/* ❤️ HEARTS */
+.heart {
+    position: fixed;
+    color: #ff2d55;
+    font-size: 24px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* ✨ SPARKLES */
+.sparkle {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    animation: sparkle 3s linear infinite;
+}
+
+@keyframes sparkle {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+}
+
+/* 💌 ENVELOPE */
+.envelope {
+    width: 300px;
+    height: 200px;
+    background: #ff8a80;
+    border-radius: 12px;
+    position: absolute;
+    cursor: pointer;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    transition: top 0.4s ease, left 0.4s ease;
+}
+
+.envelope:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 100px solid #ff5252;
+    top: -100px;
+}
+
+/* CLICK TEXT */
+.click-text {
+    position: absolute;
+    bottom: -30px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+}
+
+/* 💌 LETTER (FIXED PROPERLY) */
+.letter-box {
+    width: 92vw;
+    max-width: 650px;
+    height: 90vh;              /* IMPORTANT FIX */
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: 1s ease;
+}
+
+.letter-box.open {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* PHOTO */
+.photo {
+    width: 100%;
+    height: 40%;
+    object-fit: contain;
+    background: #000;
+}
+
+/* CONTENT FIXED */
+.content {
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+/* TEXT FULLY VISIBLE */
+#text {
+    font-size: clamp(13px, 2.2vw, 16px);
+    line-height: 1.5;
+    white-space: pre-line;
+    color: #333;
+    overflow-wrap: break-word;
+}
+
+/* TITLE */
+h3 {
+    color: #ff2d55;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ENVELOPE -->
+<div class="envelope" id="envelope">
+    <div class="click-text">💌 Click to open the letter</div>
+</div>
+
+<!-- LETTER -->
+<div class="letter-box" id="letterBox">
+    <img src="photo.jpg" class="photo">
+
+    <div class="content">
+        <h3>Chotu ❤️</h3>
+        <p id="text"></p>
+    </div>
+</div>
+
+<audio id="bgm" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+
+<script>
+let clickCount = 0;
+const envelope = document.getElementById("envelope");
+
+const message = `Hi Jaan,
+
+Jab se hamari sagaai hui hai,
+I feel like you are a part of me forever.
+
+I have never loved anyone the way I love you.
+Without you, I can’t even imagine my life.
+
+Thank you for coming into my life
+and making it so beautiful and magical.
+
+I love you so, so much ❤️
+
+Yours truly,
+Lover Aruu`;
+
+let i = 0;
+
+function typeWriter() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 35);
+    }
+}
+
+envelope.addEventListener("click", function () {
+    clickCount++;
+
+    if (clickCount <= 5) {
+        const x = Math.random() * (window.innerWidth - 300);
+        const y = Math.random() * (window.innerHeight - 200);
+
+        envelope.style.left = x + "px";
+        envelope.style.top = y + "px";
+        return;
+    }
+
+    document.getElementById("letterBox").classList.add("open");
+    document.getElementById("bgm").play();
+    typeWriter();
+});
+
+/* ❤️ HEARTS */
+setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+}, 250);
+
+/* ✨ SPARKLES */
+setInterval(() => {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 3000);
+}, 150);
+</script>
+
+</body>
+</html>
